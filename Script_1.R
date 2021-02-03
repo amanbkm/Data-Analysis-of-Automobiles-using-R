@@ -1,0 +1,30 @@
+library(ggplot2)
+mydata<-read.csv(file.choose()) #Opening the csv file using the read.csv method and using the file.choose method to choose the file
+print("The Analysis of the ")
+
+  mydata[order(mydata$co2),]
+  mydata[order(mydata$co2,mydata$co_emissions),]   #The dataframe produced is sorted by the the CO2 emissions in the ascending order.
+  mydata[order(mydata$co2,-mydata$fuel_cost_6000_miles),] #The resulting dataframe 
+
+  ggplot(data = mydata,mapping=aes(x=fuel_type,y=co2))+geom_bar(stat = 'identity') #Bar-Plot of the fuel type and the co2 emissions
+  ggplot(data = mydata,mapping=aes(x=fuel_type,y=co2))+geom_point() #Point plot of the fuel type and the Co2 emissions
+  ggplot(data = mydata,mapping=aes(x=fuel_cost_12000_miles,y=co2))+geom_point() #point plot of fuel consumption per 12k miles vs the co2 emissions
+  ggplot(data = mydata,mapping=aes(x=fuel_cost_6000_miles,y=co2))+geom_point() #point plot of fuel consumption per 6k miles vs the co2 emissions
+  ggplot(data = mydata,mapping=aes(x=Maker,y=co2))+geom_bar(stat='identity') #Bar-Plot of Maker Vs CO2
+  ggplot(data = mydata,mapping=aes(x=euro_standard,y=co2))+geom_bar(stat='identity')+ylim(0,600) #bar plot showing the relation between Euro standards and Co2 emissions.
+
+  summary(mydata) #shows the different statistical parameters of each of the columns. 
+  summary(mydata$engine_capacity)     #Computes the measures of central tendencies of engine capacity
+  summary(mydata$urban_metric)        #Computes the measures of central tendencies of urban metric
+  summary(mydata$extra_urban_metric)    #Computes the measures of central tendencies of extra urban metric
+  summary(mydata$urban_imperial)    #Computes the measures of central tendencies of urban imperial
+  summary(mydata$extra_urban_imperial) #Computes the measures of central tendencies of extra urban imperial
+  summary(mydata$co2)                   #Computes the measures of central tendencies of Co2 Emissions
+  summary(mydata$co_emissions)          #Computes the measures of central tendencies of CO emissions
+  summary(mydata$thc_emissions)         #Computes the measures of central tendencies of thc emissions
+  summary(mydata$nox_emissions)         #Computes the measures of central tendencies of nox emissions
+
+  t.test(mydata$co2,mu=200)       #A t-test has been conducted to check the significant difference between the taken avg of 200 to the data available in Co2
+  t.test(mydata$co2,mydata$co_emissions,paired=TRUE) #A paired t-test conducted to check the significant difference between both the data i.e Co emissions and co2 emissions
+  var.test(mydata$co2,mydata$noise_level)     #A f-test conducted to compare the variances of co2 emissions and the noise level
+  var.test(mydata$thc_emissions,mydata$nox_emissions) #A f-test conducted to compare the variances the thc emissions and nox emissions
